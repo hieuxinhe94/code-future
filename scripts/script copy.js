@@ -162,8 +162,6 @@ loader.load('./assets/astronaut.glb', function (object) {
 
 });
 
-
-
 // add Terrain
 var sizeX = 128,
   sizeY = 128,
@@ -193,7 +191,6 @@ Promise.all([
     terrainBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
     world.add(terrainBody);
 
-
     helper.addVisual(terrainBody, 'landscape');
 
     var raycastHelperGeometry = new THREE.CylinderGeometry(0, 1, 5, 1.5);
@@ -201,7 +198,7 @@ Promise.all([
     raycastHelperGeometry.rotateX(Math.PI / 2);
     raycastHelperMesh = new THREE.Mesh(raycastHelperGeometry, new THREE.MeshNormalMaterial());
     scene.add(raycastHelperMesh);
-    //console.log( terrainBody.threemesh.children[0] );
+    //console.log(terrainBody.threemesh.children[0] );
 
     check = function () {
       var raycaster = new THREE.Raycaster(mesh.position, new THREE.Vector3(0, -1, 0));
@@ -211,26 +208,20 @@ Promise.all([
         raycastHelperMesh.lookAt(intersects[0].face.normal);
         raycastHelperMesh.position.copy(intersects[0].point);
       }
-      //position objects ontop of the terrain
+      // position objects ontop of the terrain
       mesh.position.y = intersects && intersects[0] ? intersects[0].point.y + 0.1 : 30;
 
-      //raycast flag
+      // raycast flag
       var raycaster2 = new THREE.Raycaster(flagLocation.position, new THREE.Vector3(0, -1, 0));
       var intersects2 = raycaster2.intersectObject(terrainBody.threemesh.children[0]);
 
-
-      //position objects ontop of the terrain
+      // position objects ontop of the terrain
       flagLocation.position.y = intersects2 && intersects2[0] ? intersects2[0].point.y + .5 : 30;
       flagLight.position.y = flagLocation.position.y + 50;
       flagLight.position.x = flagLocation.position.x + 5
       flagLight.position.z = flagLocation.position.z;
-
-
-
-    } //end check
-
-
-  }); //end Promise
+    } // end check
+  }); // end Promise
 
 
 //=========================================================================================== flag
